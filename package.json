@@ -1,0 +1,14 @@
+{
+  "name": "nutriscan-nutritrack-unified",
+  "version": "1.0.0",
+  "description": "NutriScan India v3 + NutriTrack Simple — Unified AI Nutrition Platform",
+  "scripts": {
+    "install:server": "cd server && npm install",
+    "install:client": "cd client && npm install",
+    "install:all": "npm run install:server && npm run install:client",
+    "train:ml": "python3 ml_service/ml_engine.py train",
+    "start:server": "cd server && node index.js",
+    "start:client": "cd client && npm start",
+    "start": "bash start-all.sh"
+  }
+}
