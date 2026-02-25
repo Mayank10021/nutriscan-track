@@ -1,0 +1,28 @@
+import React, { useEffect, useState } from 'react';
+import { useT, Card, PageWrap, TooltipStyle, AxisStyle } from '../components/UI';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, PieChart, Pie, Cell, Legend } from 'recharts';
+const API = 'http://localhost:5000/api';
+const C = ['#10b981','#f59e0b','#ef4444','#06b6d4','#8b5cf6','#ec4899','#f97316','#14b8a6'];
+export default function Analytics() {
+  const t = useT(); const [charts, setCharts] = useState(null);
+  const tt = TooltipStyle(t); const ax = AxisStyle(t);
+  useEffect(() => { fetch(`${API}/analytics/charts`).then(r=>r.json()).then(setCharts); }, []);
+  if (!charts) return <PageWrap><div style={{display:'flex',alignItems:'center',justifyContent:'center',height:400,color:t.sub}}>Loading Analytics...</div></PageWrap>;
+  const Ch = ({title,children}) => <Card><div style={{fontSize:11,color:t.sub,fontWeight:700,textTransform:'uppercase',letterSpacing:1,marginBottom:14}}>{title}</div>{children}</Card>;
+  return (
+    <PageWrap>
+      <div style={{marginBottom:24}}><h1 style={{margin:'0 0 6px',fontWeight:900,fontSize:26,color:t.text,letterSpacing:-0.8}}>◈ Analytics Center</h1><p style={{margin:0,color:t.sub,fontSize:14}}>18+ interactive charts — deep-dive into malnutrition patterns across India</p></div>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(360px,1fr))',gap:18}}>
+        <Ch title="Age Group Distribution"><ResponsiveContainer width="100%" height={200}><BarChart data={Object.entries(charts.ageGroupDist).map(([k,v])=>({name:k,count:v}))}><CartesianGrid strokeDasharray="3 3" stroke={t.border}/><XAxis dataKey="name" {...ax}/><YAxis {...ax}/><Tooltip {...tt}/><Bar dataKey="count" radius={[5,5,0,0]}>{C.map((c,i)=><Cell key={i} fill={c}/>)}</Bar></BarChart></ResponsiveContainer></Ch>
+        <Ch title="Nutrition Status (Donut)"><ResponsiveContainer width="100%" height={200}><PieChart><Pie data={Object.entries(charts.nutritionDist).map(([k,v])=>({name:k,value:v}))} cx="50%" cy="50%" innerRadius={55} outerRadius={85} dataKey="value" label={({name,percent})=>`${name} ${(percent*100).toFixed(0)}%`} labelLine={false}>{Object.keys(charts.nutritionDist).map((_,i)=><Cell key={i} fill={[t.accent,t.warn,t.danger][i]}/>)}</Pie><Tooltip {...tt}/></PieChart></ResponsiveContainer></Ch>
+        <Ch title="BMI Category Breakdown"><ResponsiveContainer width="100%" height={200}><PieChart><Pie data={Object.entries(charts.bmiDist).map(([k,v])=>({name:k,count:v}))} cx="50%" cy="50%" outerRadius={85} dataKey="count" label={({name,percent})=>`${name} ${(percent*100).toFixed(0)}%`}>{Object.keys(charts.bmiDist).map((_,i)=><Cell key={i} fill={C[i]}/>)}</Pie><Tooltip {...tt}/></PieChart></ResponsiveContainer></Ch>
+        <Ch title="Region-wise Nutrition (Stacked)"><ResponsiveContainer width="100%" height={200}><BarChart data={Object.entries(charts.regionNutrition).map(([k,v])=>({name:k,...v}))}><CartesianGrid strokeDasharray="3 3" stroke={t.border}/><XAxis dataKey="name" {...ax}/><YAxis {...ax}/><Tooltip {...tt}/><Legend/><Bar dataKey="Good" stackId="a" fill={t.accent}/><Bar dataKey="Moderate" stackId="a" fill={t.warn}/><Bar dataKey="Poor" stackId="a" fill={t.danger} radius={[5,5,0,0]}/></BarChart></ResponsiveContainer></Ch>
+        <Ch title="Income vs Nutrition (Policy View)"><ResponsiveContainer width="100%" height={200}><BarChart data={Object.entries(charts.incomeNutrition).map(([k,v])=>({name:k.replace(' Income','').replace('Below Poverty Line','BPL'),...v}))}><CartesianGrid strokeDasharray="3 3" stroke={t.border}/><XAxis dataKey="name" {...ax}/><YAxis {...ax}/><Tooltip {...tt}/><Legend/><Bar dataKey="Good" fill={t.accent}/><Bar dataKey="Moderate" fill={t.warn}/><Bar dataKey="Poor" fill={t.danger}/></BarChart></ResponsiveContainer></Ch>
+        <Ch title="Calorie Intake Distribution"><ResponsiveContainer width="100%" height={200}><BarChart data={Object.entries(charts.caloriesBins).map(([k,v])=>({range:k,count:v}))}><CartesianGrid strokeDasharray="3 3" stroke={t.border}/><XAxis dataKey="range" {...ax}/><YAxis {...ax}/><Tooltip {...tt}/><Bar dataKey="count" fill={t.accent2} radius={[5,5,0,0]}/></BarChart></ResponsiveContainer></Ch>
+        <Ch title="Protein Deficiency by Age"><ResponsiveContainer width="100%" height={200}><BarChart data={Object.entries(charts.proteinDefByAge).map(([k,v])=>({name:k,normal:v.total-v.deficient,deficient:v.deficient}))}><CartesianGrid strokeDasharray="3 3" stroke={t.border}/><XAxis dataKey="name" {...ax}/><YAxis {...ax}/><Tooltip {...tt}/><Legend/><Bar dataKey="normal" stackId="a" fill={t.accent} name="Adequate"/><Bar dataKey="deficient" stackId="a" fill={t.danger} name="Deficient" radius={[5,5,0,0]}/></BarChart></ResponsiveContainer></Ch>
+        <Ch title="Gender-wise Risk Split"><ResponsiveContainer width="100%" height={200}><BarChart data={Object.entries(charts.genderRisk).map(([k,v])=>({name:k,...v}))}><CartesianGrid strokeDasharray="3 3" stroke={t.border}/><XAxis dataKey="name" {...ax}/><YAxis {...ax}/><Tooltip {...tt}/><Legend/><Bar dataKey="Low" fill={t.accent}/><Bar dataKey="Medium" fill={t.warn}/><Bar dataKey="High" fill={t.danger}/></BarChart></ResponsiveContainer></Ch>
+        <Ch title="Activity Level vs Avg BMI"><ResponsiveContainer width="100%" height={200}><BarChart data={Object.entries(charts.activityNutrition).map(([k,v])=>({name:k,avgBMI:parseFloat(v.avgBMI)}))}><CartesianGrid strokeDasharray="3 3" stroke={t.border}/><XAxis dataKey="name" {...ax}/><YAxis {...ax}/><Tooltip {...tt}/><Bar dataKey="avgBMI" fill="#8b5cf6" radius={[5,5,0,0]}/></BarChart></ResponsiveContainer></Ch>
+      </div>
+    </PageWrap>
+  );
+}
