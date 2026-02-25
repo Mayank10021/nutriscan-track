@@ -88,9 +88,9 @@ User → Flask Web Interface → Python Backend → Data Analysis → Visual Ins
 
 | Feature | Source |
 |---|---|
-| AI Risk Predictor, Food Analyzer, Chatbot, Alerts | NutriScan v3 |
-| Activity Tracker, Diet Plan, Impact Model | NutriScan v3 |
-| Health Worker + Admin Dashboards | NutriScan v3 |
+| AI Risk Predictor, Food Analyzer, Chatbot, Alerts | NutriScan |
+| Activity Tracker, Diet Plan, Impact Model | NutriScan |
+| Health Worker + Admin Dashboards | NutriScan |
 | Research Report: The Problem | NutriTrack |
 | Research Report: Data Analysis | NutriTrack |
 | Research Report: Disease Impact | NutriTrack |
