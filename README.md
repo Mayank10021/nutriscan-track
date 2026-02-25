@@ -1,6 +1,88 @@
-# NutriScan + NutriTrack — Unified Platform
+# 🩺 Malnutrition Pattern Identification System
+### Public Health & Nutrition (Rural Focus)
 
-Merges NutriScan India v3 and NutriTrack Simple into one app with a blended UI.
+A Python-based data analysis and visualization system designed to identify malnutrition patterns in rural populations using demographic and nutrition indicators.
+
+---
+
+## 📖 Project Overview
+
+Malnutrition remains a serious public health issue in rural and economically weaker regions. Although health data is collected, it is often not analyzed effectively.
+
+This project uses Python data analysis and a Flask web interface to:
+
+- Identify high-risk malnutrition groups
+- Analyze nutrition patterns by age, gender, and region
+- Visualize malnutrition trends
+- Support data-driven health planning
+
+---
+
+## 🎯 Objectives
+
+- Analyze nutrition and demographic data
+- Detect malnutrition-prone regions and age groups
+- Provide clear visual insights
+- Support preventive health interventions
+
+---
+
+## 🛠️ Tech Stack
+
+- **Python**
+- **Pandas**
+- **NumPy**
+- **Matplotlib / Seaborn**
+- **Flask (Web Framework)**
+
+---
+
+## 📊 Dataset Used
+
+The dataset includes:
+
+- Age
+- Gender
+- Height
+- Weight
+- BMI
+- Region / District
+- Nutrition Status (Underweight, Normal, Overweight)
+
+(Simulated dataset used for demonstration)
+
+---
+
+## ⚙️ How It Works
+
+1. Load dataset using Pandas
+2. Clean and preprocess data
+3. Calculate BMI and nutrition indicators
+4. Group data by region and age
+5. Generate visualizations
+6. Display results on Flask dashboard
+
+---
+
+## 🖥️ Project Architecture
+
+User → Flask Web Interface → Python Backend → Data Analysis → Visual Insights
+
+- Python handles data processing and analysis.
+- Flask displays results in a simple web dashboard.
+
+---
+
+## 📈 Key Features
+
+✔ Malnutrition percentage calculation  
+✔ Region-wise analysis  
+✔ Age-group comparison  
+✔ Interactive dashboard  
+✔ Visual charts and graphs  
+
+---
+
 
 ## What's Combined
 
@@ -42,3 +124,38 @@ cd client && npm install && npm start
 - Node API → http://localhost:5000
 - Python Charts → http://localhost:8000
 - Research Reports → http://localhost:3000/report/problem
+
+
+---
+
+## 📌 Impact
+
+- Enables early identification of malnutrition risks
+- Helps target high-risk regions
+- Supports better public health planning
+- Promotes data-driven decision making
+
+---
+
+## 🔮 Future Scope
+
+- Add Machine Learning prediction model
+- Integrate real government datasets
+- Deploy on cloud platform
+- Mobile-friendly dashboard
+
+---
+
+## 👨‍💻 Team Roles
+
+### Research & Architecture Lead
+- Studied rural health challenges
+- Designed data workflow
+- Structured dataset and key indicators
+- Planned analysis and visualization pipeline
+
+---
+
+## 📃 License
+
+This project is developed for academic and hackathon purposes.
